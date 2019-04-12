@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## データベース
 
-Things you may want to cover:
+* ユーザーテーブル
+  * ユーザー名
+  * メールアドレス
+  * パスワード
 
-* Ruby version
+* タスクテーブル
+  * タスク名
+  * 説明分
+  * 終了期限
+  * ステータス
+  * ユーザーID（外部キー）
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+* ラベルテーブル
+  * ラベル種類
+  * ユーザーID（外部キー）
+  * タスクID（外部キー）
 
 * ...
