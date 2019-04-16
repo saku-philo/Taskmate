@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    # モデル名
+    models:
+      task: タスク
+    # モデルごとのアトリビュート
+    attributes:
+      task:
+        name: 名称
+        description: 詳細

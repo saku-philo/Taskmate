@@ -1,0 +1,15 @@
+ja:
+  tasks:
+    to_index: 一覧へ
+    to_edit: 編集
+    to_delete: 削除
+    index:
+      task_index: タスク一覧
+      name: 名称
+      created_at: 登録日時
+      create_task: タスク登録
+    new:
+      create_new_task: 新規登録
+    edit:
+      edit_task: タスク編集
+    form:
