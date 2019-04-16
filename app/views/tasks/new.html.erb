@@ -1,5 +1,5 @@
-<h1>新規登録</h1>
+<h1><%= t('.create_new_task')%></h1>
 
 <%= render partial: 'form', locals: { task: @task } %>
 
-<%= link_to '一覧へ', tasks_path %>
+<%= link_to t('tasks.to_index'), tasks_path %>
