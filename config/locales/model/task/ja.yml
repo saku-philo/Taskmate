@@ -8,3 +8,4 @@ ja:
       task:
         name: 名称
         description: 詳細
+        due_date: 終了期限

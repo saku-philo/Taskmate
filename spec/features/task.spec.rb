@@ -34,13 +34,16 @@ RSpec.feature "タスク管理機能", type: :feature do
     # 3.ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
     fill_in 'task_description', with: 'buy meet'
 
+    # 終了期限登録
+    fill_in 'task_due_date', with: '2019-02-28'
+
     # 「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）
     # 4.「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
     click_on '登録する'
 
     # clickで登録されたはずの情報が、タスク一覧ページに表示されているかを確認する
     # 5.タスク詳細ページに、テストコードで作成したはずのデータ（記述）がhave_contentされているか（含まれているか）を確認（期待）するコードを書く
-    expect(page).to have_content 'shopping'
+    expect(page).to have_content 'shopping', '2019-02-28'
   end
 
   scenario "タスク詳細のテスト" do
@@ -66,5 +69,15 @@ RSpec.feature "タスク管理機能", type: :feature do
     # ページ内のtrデータを取得、登録した二つのデータのうち、後データが上にきているか確認
     row = page.all('tr')
     expect(row[1]).to have_content 'Factoryで作ったデフォルトのタイトル２'
+  end
+
+  scenario "タスクを終了期限順にソートする機能のテスト" do
+    visit tasks_path
+    # ソートボタンを押す
+    click_link '終了期限で並び替え'
+
+    # 終了期限でソート出来ているかを確認
+    row = page.all('tr')
+    expect(row[1]).to have_content '2019-04-30'
   end
 end
