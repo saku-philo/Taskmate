@@ -3,12 +3,14 @@
 <table>
   <tr>
     <th><%= t('.name') %></th>
+    <th><%= t('tasks.due_date')%></th>
     <th><%= t('.created_at')%></th>
   </tr>
 
   <% @tasks.each do |task| %>
     <tr>
       <td><%= link_to task.name, task_path(task) %></td>
+      <td><%= task.due_date %></td>
       <td><%= task.created_at %></td>
       <td><%= link_to t('tasks.to_edit'), edit_task_path(task) %></td>
       <td><%= link_to t('tasks.to_delete'), task_path(task), method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいですか？"} %></td>
@@ -16,3 +18,4 @@
   <% end %>
 </table>
 <%= link_to t('.create_task'), new_task_path %>
+<%= link_to t('.sort_task'), tasks_path(sort_expired: "true") %>

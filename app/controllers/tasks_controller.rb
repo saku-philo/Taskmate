@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only:[:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.all.order(created_at: 'DESC')
+    @tasks = Task.get_from_params(params)
   end
 
   def show
@@ -40,7 +40,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description)
+    params.require(:task).permit(:name, :description, :due_date)
   end
 
   def set_task
