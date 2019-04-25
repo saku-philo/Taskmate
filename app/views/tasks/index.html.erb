@@ -4,6 +4,7 @@
   <tr>
     <th><%= t('.name') %></th>
     <th><%= t('tasks.due_date')%></th>
+    <th><%= t('tasks.status')%></th>
     <th><%= t('.created_at')%></th>
   </tr>
 
@@ -11,11 +12,27 @@
     <tr>
       <td><%= link_to task.name, task_path(task) %></td>
       <td><%= task.due_date %></td>
+      <td><%= task.status %></td>
       <td><%= task.created_at %></td>
       <td><%= link_to t('tasks.to_edit'), edit_task_path(task) %></td>
       <td><%= link_to t('tasks.to_delete'), task_path(task), method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいですか？"} %></td>
     </tr>
   <% end %>
 </table>
+
+<%= form_with(model: @task, method: :get, local: true) do |f| %>
+  <div>
+    <%= f.label :name_search %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :status_search %>
+    <%= f.select :status, @task.status_key, include_brank: true %>
+  </div>
+  <%= f.hidden_field :search, value: 'true' %>
+  <%= f.submit '検索' %>
+<% end %>
+
 <%= link_to t('.create_task'), new_task_path %>
 <%= link_to t('.sort_task'), tasks_path(sort_expired: "true") %>
+<%= link_to t('.all_task'), tasks_path %>

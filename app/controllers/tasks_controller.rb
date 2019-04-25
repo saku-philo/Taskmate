@@ -3,6 +3,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.get_from_params(params)
+    @task = Task.new
   end
 
   def show
@@ -40,7 +41,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :due_date)
+    params.require(:task).permit(:name, :description, :due_date, :status)
   end
 
   def set_task

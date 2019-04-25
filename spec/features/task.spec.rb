@@ -80,4 +80,20 @@ RSpec.feature "タスク管理機能", type: :feature do
     row = page.all('tr')
     expect(row[1]).to have_content '2019-04-30'
   end
+
+  scenario "タスクを名前で検索する機能のテスト" do
+    visit tasks_path
+    fill_in 'task_name', with: '１'
+    select '', from: 'task_status'
+    click_on '検索'
+    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル１'
+  end
+
+  scenario "タスクをステータスで検索する機能のテスト" do
+    visit tasks_path
+    select '着手中', from: 'task_status'
+    click_on '検索'
+    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル２'
+  end
+
 end
