@@ -5,13 +5,17 @@ ja:
     to_delete: 削除
     due_date: 終了期限
     status: ステータス
+    priority: 優先度
     index:
       task_index: タスク一覧
       name: 名称
       created_at: 登録日時
       create_task: タスク登録
       sort_task: 終了期限で並び替え
+      sort_task_priority: 優先度で並び替え
       all_task: 登録順に表示
+      priority: 優先度
+      high: 高い
     new:
       create_new_task: 新規登録
     edit:

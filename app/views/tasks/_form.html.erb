@@ -15,5 +15,9 @@
     <%= f.label :status %>
     <%= f.select :status, task.status_key %>
   </div>
+<div>
+    <%= f.label :priority %>
+    <%= f.select :priority, Task.priorities.keys, selected: Task.priorities[@task.priority] %>
+  </div>
   <%= f.submit %>
 <% end %>
