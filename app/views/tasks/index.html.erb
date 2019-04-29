@@ -21,6 +21,7 @@
     </tr>
   <% end %>
 </table>
+<%= paginate @tasks %>
 
 <%= form_with(model: @task, method: :get, local: true) do |f| %>
   <div>

@@ -8,6 +8,9 @@ RSpec.feature "タスク管理機能", type: :feature do
     FactoryBot.create(:task)
     FactoryBot.create(:second_task)
     FactoryBot.create(:third_task)
+    FactoryBot.create(:fourth_task)
+    FactoryBot.create(:fifth_task)
+    FactoryBot.create(:sixth_task)
     #Task.create!(name: 'test_task_01', description: 'testtesttest')
     #Task.create!(name: 'test_task_02', description: 'samplesample')
   end
@@ -18,9 +21,9 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     # visitした（到着した）expect(page)に（タスク一覧ページに）「testtesttest」「samplesample」という文字列が
     # have_contentされているか？（含まれているか？）ということをexpectする（確認・期待する）テストを書いている
-    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル１'
-    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル２'
-    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル３'
+    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル６'
+    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル５'
+    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル４'
   end
 
   scenario "タスク作成のテスト" do
@@ -57,23 +60,23 @@ RSpec.feature "タスク管理機能", type: :feature do
     visit tasks_path
 
     # タスク名（リンクボタン）をクリック
-    click_link 'Factoryで作ったデフォルトのタイトル１'
+    click_link 'Factoryで作ったデフォルトのタイトル６'
 
     # 詳細ページに内容が含まれているか確認
-    expect(page).to have_content 'Factoryで作ったデフォルトのコンテント１'
+    expect(page).to have_content 'Factoryで作ったデフォルトのコンテント６'
 
     # 別のタスクで確認
     visit tasks_path
-    click_link 'Factoryで作ったデフォルトのタイトル２'
-    expect(page).to have_content 'Factoryで作ったデフォルトのコンテント２'
+    click_link 'Factoryで作ったデフォルトのタイトル３'
+    expect(page).to have_content 'Factoryで作ったデフォルトのコンテント３'
   end
 
   scenario "タスクが作成日時順に並んでいるかのテスト" do
     visit tasks_path
 
-    # ページ内のtrデータを取得、登録した３つのデータのうち、後データが上にきているか確認
+    # ページ内のtrデータを取得、登録した６つのデータのうち、後データが上にきているか確認
     row = page.all('tr')
-    expect(row[1]).to have_content 'Factoryで作ったデフォルトのタイトル３'
+    expect(row[1]).to have_content 'Factoryで作ったデフォルトのタイトル６'
   end
 
   scenario "タスクを終了期限順にソートする機能のテスト" do
@@ -83,7 +86,7 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     # 終了期限でソート出来ているかを確認
     row = page.all('tr')
-    expect(row[1]).to have_content '2019-04-30'
+    expect(row[1]).to have_content '2021-06-30'
   end
 
   scenario "タスクを優先度順にソートする機能のテスト" do
@@ -109,6 +112,14 @@ RSpec.feature "タスク管理機能", type: :feature do
     select '着手中', from: 'task_status'
     click_on '検索'
     expect(page).to have_content 'Factoryで作ったデフォルトのタイトル２'
+  end
+
+  scenario "ページネーション機能のテスト" do
+    # テストデータを６件登録、１ページの最大表示件数を５件に設定
+    # １件目の登録データが２ページ目に表示される事を確認する
+    visit tasks_path
+    click_link '次'
+    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル１'
   end
 
 end
