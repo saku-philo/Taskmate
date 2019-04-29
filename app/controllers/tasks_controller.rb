@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
   before_action :set_task, only:[:show, :edit, :update, :destroy]
+  PER = 5
 
   def index
-    @tasks = Task.get_from_params(params)
+    @tasks = Task.get_from_params(params).page(params[:page]).per(PER)
     @task = Task.new
   end
 
