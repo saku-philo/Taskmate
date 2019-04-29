@@ -7,6 +7,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   background do
     FactoryBot.create(:task)
     FactoryBot.create(:second_task)
+    FactoryBot.create(:third_task)
     #Task.create!(name: 'test_task_01', description: 'testtesttest')
     #Task.create!(name: 'test_task_02', description: 'samplesample')
   end
@@ -19,6 +20,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     # have_contentされているか？（含まれているか？）ということをexpectする（確認・期待する）テストを書いている
     expect(page).to have_content 'Factoryで作ったデフォルトのタイトル１'
     expect(page).to have_content 'Factoryで作ったデフォルトのタイトル２'
+    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル３'
   end
 
   scenario "タスク作成のテスト" do
@@ -37,6 +39,8 @@ RSpec.feature "タスク管理機能", type: :feature do
     # 終了期限登録
     fill_in 'task_due_date', with: '2019-02-28'
 
+    #優先順位登録
+    select '高', from: '優先度'
     # 「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）
     # 4.「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
     click_on '登録する'
@@ -44,6 +48,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     # clickで登録されたはずの情報が、タスク一覧ページに表示されているかを確認する
     # 5.タスク詳細ページに、テストコードで作成したはずのデータ（記述）がhave_contentされているか（含まれているか）を確認（期待）するコードを書く
     expect(page).to have_content 'shopping', '2019-02-28'
+    expect(page).to have_content '高'
   end
 
   scenario "タスク詳細のテスト" do
@@ -66,9 +71,9 @@ RSpec.feature "タスク管理機能", type: :feature do
   scenario "タスクが作成日時順に並んでいるかのテスト" do
     visit tasks_path
 
-    # ページ内のtrデータを取得、登録した二つのデータのうち、後データが上にきているか確認
+    # ページ内のtrデータを取得、登録した３つのデータのうち、後データが上にきているか確認
     row = page.all('tr')
-    expect(row[1]).to have_content 'Factoryで作ったデフォルトのタイトル２'
+    expect(row[1]).to have_content 'Factoryで作ったデフォルトのタイトル３'
   end
 
   scenario "タスクを終了期限順にソートする機能のテスト" do
@@ -79,6 +84,16 @@ RSpec.feature "タスク管理機能", type: :feature do
     # 終了期限でソート出来ているかを確認
     row = page.all('tr')
     expect(row[1]).to have_content '2019-04-30'
+  end
+
+  scenario "タスクを優先度順にソートする機能のテスト" do
+    visit tasks_path
+    # ソートボタンを押す
+    click_link '優先度で並び替え'
+
+    # 優先度でソート出来ているかを確認
+    row = page.all('tr')
+    expect(row[1]).to have_content '高'
   end
 
   scenario "タスクを名前で検索する機能のテスト" do

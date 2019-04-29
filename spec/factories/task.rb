@@ -7,6 +7,7 @@ FactoryBot.define do
     description { 'Factoryで作ったデフォルトのコンテント１' }
     due_date { '2019-04-30' }
     status { '未着手' }
+    priority { '低' }
   end
 
   # 作成するテストデータの名前を「second_task」とします
@@ -16,5 +17,14 @@ FactoryBot.define do
     description { 'Factoryで作ったデフォルトのコンテント２' }
     due_date { '2020-12-31' }
     status { '着手中' }
+    priority { '中' }
+  end
+
+  factory :third_task, class: Task do
+    name { 'Factoryで作ったデフォルトのタイトル３' }
+    description { 'Factoryで作ったデフォルトのコンテント３' }
+    due_date { '2020-05-01' }
+    status { '未着手' }
+    priority { '高' }
   end
 end

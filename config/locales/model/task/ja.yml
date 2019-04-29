@@ -12,3 +12,11 @@ ja:
         status: ステータス
         name_search: タスク名
         status_search: ステータス
+        priority: 優先度
+  enums:
+    task:
+      priority:
+        nothing: ''
+        high: 高
+        middle: 中
+        low: 低
