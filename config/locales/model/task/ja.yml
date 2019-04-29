@@ -9,3 +9,6 @@ ja:
         name: 名称
         description: 詳細
         due_date: 終了期限
+        status: ステータス
+        name_search: タスク名
+        status_search: ステータス
