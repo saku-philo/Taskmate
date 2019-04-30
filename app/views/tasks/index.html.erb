@@ -1,42 +1,52 @@
-<h1><%= t('.task_index')%></h1>
+<div class="container">
+  <h1 class="my-3"><%= t('.task_index')%></h1>
+  <%= link_to t('.create_task'), new_task_path, class: 'btn btn-outline-primary mr-3' %>
+  <%= link_to t('.sort_task'), tasks_path(sort_expired: "true"), class: 'btn btn-outline-secondary mr-3' %>
+  <%= link_to t('.sort_task_priority'), tasks_path(sort_expired_priority: "true"), class: 'btn btn-outline-secondary mr-3' %>
+  <%= link_to t('.all_task'), tasks_path, class: 'btn btn-outline-secondary' %>
+</div>
 
-<table>
-  <tr>
-    <th><%= t('.name') %></th>
-    <th><%= t('tasks.due_date')%></th>
-    <th><%= t('tasks.status')%></th>
-    <th><%= t('.priority')%></th>
-    <th><%= t('.created_at')%></th>
-  </tr>
-
-  <% @tasks.each do |task| %>
-    <tr>
-      <td><%= link_to task.name, task_path(task) %></td>
-      <td><%= task.due_date %></td>
-      <td><%= task.status %></td>
-      <td><%= task.priority %></td>
-      <td><%= task.created_at %></td>
-      <td><%= link_to t('tasks.to_edit'), edit_task_path(task) %></td>
-      <td><%= link_to t('tasks.to_delete'), task_path(task), method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいですか？"} %></td>
-    </tr>
+<div class="container my-5 form-group">
+  <div class="card shadow px-5 py-3">
+  <%= form_with(model: @task, method: :get, local: true) do |f| %>
+    <div>
+      <%= f.label :name_search %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <div>
+      <%= f.label :status_search %>
+      <%= f.select :status, @task.status_key, {}, include_brank: true, class: 'form-control' %>
+    </div>
+    <%= f.hidden_field :search, value: 'true' %>
+    <div class="my-3">
+      <%= f.submit '検索', class: 'btn btn-outline-primary' %>
+    </div>
   <% end %>
-</table>
-<%= paginate @tasks %>
-
-<%= form_with(model: @task, method: :get, local: true) do |f| %>
-  <div>
-    <%= f.label :name_search %>
-    <%= f.text_field :name %>
   </div>
-  <div>
-    <%= f.label :status_search %>
-    <%= f.select :status, @task.status_key, include_brank: true %>
-  </div>
-  <%= f.hidden_field :search, value: 'true' %>
-  <%= f.submit '検索' %>
-<% end %>
+</div>
 
-<%= link_to t('.create_task'), new_task_path %>
-<%= link_to t('.sort_task'), tasks_path(sort_expired: "true") %>
-<%= link_to t('.sort_task_priority'), tasks_path(sort_expired_priority: "true") %>
-<%= link_to t('.all_task'), tasks_path %>
+<div class="container my-5">
+  <table class="table table-hover table-striped">
+    <tr>
+      <th><%= t('.name') %></th>
+      <th><%= t('tasks.due_date')%></th>
+      <th><%= t('tasks.status')%></th>
+      <th><%= t('.priority')%></th>
+      <th colspan="3"><%= t('.created_at')%></th>
+    </tr>
+
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= link_to task.name, task_path(task) %></td>
+        <td><%= task.due_date %></td>
+        <td><%= task.status %></td>
+        <td><%= task.priority %></td>
+        <td><%= task.created_at %></td>
+        <td><%= link_to t('tasks.to_edit'), edit_task_path(task), class: "btn btn-outline-success" %></td>
+        <td><%= link_to t('tasks.to_delete'), task_path(task), class: 'btn btn-outline-danger', method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいですか？"} %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= paginate @tasks %>
+</div>
+
