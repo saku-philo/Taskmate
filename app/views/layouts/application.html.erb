@@ -10,9 +10,21 @@
   </head>
 
   <body>
-    <div class="container">
-      <%= notice if flash.notice.present? %>
-    </div>
+    <nav class="navbar navbar-expand-sm sticky-top navbar-light p-4 border-bottom" style="background-color: #fdeff2; ">
+      <div class="container-fluid">
+          <a class="nav-barbrand" style="color:black;"><span>Taskmate</span></a>
+        <div class="collapse navbar-collapse justify-content-end">
+          <ul class="navbar-nav">
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <% if flash.notice.present? %>
+      <div class="container alert alert-success my-2">
+      <%= notice %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

@@ -1,5 +1,9 @@
-<h1><%= t('.edit_task')%></h1>
+<div class="container my-5">
+  <h1><%= t('.edit_task')%></h1>
+</div>
 
 <%= render partial: 'form', locals: { task: @task } %>
 
-<%= link_to '一覧へ', tasks_path %>
+<div class="container">
+  <%= link_to '一覧へ', tasks_path %>
+</div>
