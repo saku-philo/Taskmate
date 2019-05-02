@@ -15,6 +15,13 @@
           <a class="nav-barbrand" style="color:black;"><span>Taskmate</span></a>
         <div class="collapse navbar-collapse justify-content-end">
           <ul class="navbar-nav">
+            <% if current_user %>
+              <li class="nav-item"><%= link_to 'タスク一覧', tasks_path, class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to 'マイページ', user_path(current_user.id), class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to 'ログアウト', session_path(current_user.id), method: :delete, class: 'nav-link' %></li>
+            <% else %>
+              <li class="nav-item"><%= link_to 'ログイン', new_session_path, class: 'nav-link' %></li>
+            <% end %>
           </ul>
         </div>
       </div>
@@ -22,9 +29,18 @@
 
     <% if flash.notice.present? %>
       <div class="container alert alert-success my-2">
-      <%= notice %>
+        <%= notice %>
+      </div>
+    <% elsif flash.alert.present? %>
+      <div class="container alert alert-danger my-2">
+        <%= alert %>
       </div>
     <% end %>
+
+    <% if logged_in? %>
+    <% else %>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

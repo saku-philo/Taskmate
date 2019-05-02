@@ -13,6 +13,7 @@ ja:
         name_search: タスク名
         status_search: ステータス
         priority: 優先度
+      user:
   enums:
     task:
       priority:
