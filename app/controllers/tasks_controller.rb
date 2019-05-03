@@ -3,8 +3,8 @@ class TasksController < ApplicationController
   PER = 5
 
   def index
-    @tasks = Task.get_from_params(params).page(params[:page]).per(PER)
-    @task = Task.new
+    @tasks = current_user.tasks.get_from_params(params).page(params[:page]).per(PER)
+    @task = current_user.tasks.new
   end
 
   def show
@@ -15,7 +15,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.new(task_params)
     if @task.save
       redirect_to tasks_path, notice: "タスク「#{@task.name}」を登録しました！"
     else
@@ -46,6 +46,6 @@ class TasksController < ApplicationController
   end
 
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 end
