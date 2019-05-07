@@ -7,8 +7,13 @@ RSpec.describe User, type: :model do
 
   describe 'バリデーション' do
     it "nameが空ならバリデーションが通らない" do
-      @user.name = 'ああ'
+      @user.name = ''
       expect(@user).not_to be_valid
+    end
+
+    it "nameが入っていればバリデーションが通る" do
+      @user.name = 'ああ'
+      expect(@user).to be_valid
     end
 
     it "emailが空ならバリデーションが通らない" do
