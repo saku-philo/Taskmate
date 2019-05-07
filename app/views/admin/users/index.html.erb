@@ -1,0 +1,20 @@
+<div class="container my-5">
+  <h2 class="my-3">登録ユーザー一覧</h2>
+  <%= link_to 'ユーザー登録', new_admin_user_path, class: 'btn btn-primary my-3' %>
+  <table class="table table-hover table-striped">
+    <tr>
+      <th>ユーザーID</th>
+      <th>ユーザー名</th>
+      <th colspan="2">タスク件数</th>
+    </tr>
+
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.tasks.size %>件</td>
+        <td class="user_task"><%= link_to '詳細', admin_user_path(user) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
