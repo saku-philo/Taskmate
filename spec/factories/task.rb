@@ -57,4 +57,40 @@ FactoryBot.define do
     status { '未着手' }
     priority { '高' }
   end
+
+  factory :seventh_task, class: Task do
+    user_id { 2 }
+    name { 'のび太が作ったデフォルトのタイトル７' }
+    description { 'のび太が作ったデフォルトのコンテント７' }
+    due_date { '2027-07-14' }
+    status { '未着手' }
+    priority { '高' }
+  end
+
+  factory :eighth_task, class: Task do
+    user_id { 2 }
+    name { 'のび太が作ったデフォルトのタイトル８' }
+    description { 'のび太が作ったデフォルトのコンテント８' }
+    due_date { '2028-08-16' }
+    status { '着手中' }
+    priority { '中' }
+  end
+
+  factory :ninth_task, class: Task do
+    user_id { 2 }
+    name { 'のび太が作ったデフォルトのタイトル９' }
+    description { 'のび太が作ったデフォルトのコンテント９' }
+    due_date { '2029-09-18' }
+    status { '未着手' }
+    priority { '低' }
+  end
+
+  factory :tenth_task, class: Task do
+    user_id { 2 }
+    name { 'のび太が作ったデフォルトのタイトル１０' }
+    description { 'のび太が作ったデフォルトのコンテント１０' }
+    due_date { '2030-10-20' }
+    status { '着手中' }
+    priority { '高' }
+  end
 end
