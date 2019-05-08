@@ -14,6 +14,11 @@ ja:
         status_search: ステータス
         priority: 優先度
       user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード確認
+        admin: 管理者権限
   enums:
     task:
       priority:

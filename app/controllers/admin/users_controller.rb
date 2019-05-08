@@ -1,5 +1,6 @@
 class Admin::UsersController < ApplicationController
   skip_before_action :login_required, only: [:new, :create,]
+  before_action :check_admin
 
   def new
     @user = User.new
@@ -37,13 +38,22 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
-    redirect_to admin_users_path, alert: "「#{@user.name}」さんの情報を削除しました！"
+    if @user.destroy
+      redirect_to admin_users_path, alert: "「#{@user.name}」さんの情報を削除しました！"
+    else
+      redirect_to admin_users_path, alert: "管理者がいなくなるため、削除出来ません"
+    end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
+  end
+
+  def check_admin
+    unless current_user.admin?
+      raise Forbidden
+    end
   end
 end
