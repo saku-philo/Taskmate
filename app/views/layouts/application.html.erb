@@ -10,12 +10,13 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-sm sticky-top navbar-light p-4 border-bottom" style="background-color: #fdeff2; ">
+    <nav class="navbar navbar-expand-sm sticky-top navbar-light p-4 border-bottom" id="navi-bar">
       <div class="container-fluid">
           <a class="nav-barbrand" style="color:black;"><span>Taskmate</span></a>
         <div class="collapse navbar-collapse justify-content-end">
           <ul class="navbar-nav">
             <% if current_user %>
+              <li class="nav-item"><%= link_to '管理画面', admin_users_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'タスク一覧', tasks_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'マイページ', user_path(current_user.id), class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'ログアウト', session_path(current_user.id), method: :delete, class: 'nav-link' %></li>

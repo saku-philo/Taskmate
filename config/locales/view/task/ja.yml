@@ -1,13 +1,16 @@
 ja:
   users:
     create_account: アカウント作成
+    update_account: ユーザー情報更新
   tasks:
+    name: 名称
     to_index: 一覧へ
     to_edit: 編集
     to_delete: 削除
     due_date: 終了期限
     status: ステータス
     priority: 優先度
+    created_at: 登録日時
     index:
       task_index: タスク一覧
       name: 名称

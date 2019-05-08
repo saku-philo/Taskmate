@@ -118,6 +118,5 @@ RSpec.feature "ユーザー毎のタスク管理機能", type: :feature do
     expect(page).to have_content 'のび太'
     expect(page).to have_content "#{'helpDoraemon@f.com'.downcase}"
     expect(page).to have_content '覗き見はだめよ❤️'
-    save_and_open_page
   end
 end

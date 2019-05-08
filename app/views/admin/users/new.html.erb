@@ -1,0 +1,28 @@
+<% if @user.errors.present? %>
+  <div class="container alert alert-danger my-3">
+    <ul id="error_explanation">
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="container my-5">
+  <h1>ユーザー登録(管理者権限)</h1>
+  <%= form_with(model: @user, url: admin_users_path, local: true) do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+
+    <%= f.submit "#{t('users.create_account')}" %>
+  <% end %>
+</div>
