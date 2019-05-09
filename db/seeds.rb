@@ -9,9 +9,24 @@
   name = Faker::Games::Zelda.character
   email = Faker::Internet.email
   password = "123456"
+  admin = false
   User.create!(name: name,
                email: email,
                password: password,
                password_confirmation: password,
+               admin: admin
+               )
+end
+
+10.times do |n|
+  name = Faker::Games::Witcher.character
+  email = Faker::Internet.email
+  password = "adminuser"
+  admin = true
+  User.create!(name: name,
+               email: email,
+               password: password,
+               password_confirmation: password,
+               admin: admin
                )
 end
