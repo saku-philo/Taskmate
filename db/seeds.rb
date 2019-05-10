@@ -9,9 +9,18 @@
   name = Faker::Games::Zelda.character
   email = Faker::Internet.email
   password = "123456"
+  admin = false
   User.create!(name: name,
                email: email,
                password: password,
                password_confirmation: password,
+               admin: admin
                )
 end
+
+User.create!(name: "admin",
+              email: "admin@a.com",
+              password: "adminuser",
+              password_confirmation: "adminuser",
+              admin: true
+              )

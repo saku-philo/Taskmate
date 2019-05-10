@@ -16,7 +16,9 @@
         <div class="collapse navbar-collapse justify-content-end">
           <ul class="navbar-nav">
             <% if current_user %>
-              <li class="nav-item"><%= link_to '管理画面', admin_users_path, class: 'nav-link' %></li>
+              <% if current_user.admin? %>
+                <li class="nav-item"><%= link_to '管理者画面', admin_users_path, class: 'nav-link' %></li>
+              <% end %>
               <li class="nav-item"><%= link_to 'タスク一覧', tasks_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'マイページ', user_path(current_user.id), class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'ログアウト', session_path(current_user.id), method: :delete, class: 'nav-link' %></li>
