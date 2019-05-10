@@ -18,15 +18,9 @@
                )
 end
 
-10.times do |n|
-  name = Faker::Games::Witcher.character
-  email = Faker::Internet.email
-  password = "adminuser"
-  admin = true
-  User.create!(name: name,
-               email: email,
-               password: password,
-               password_confirmation: password,
-               admin: admin
-               )
-end
+User.create!(name: "admin",
+              email: "admin@a.com",
+              password: "adminuser",
+              password_confirmation: "adminuser",
+              admin: true
+              )
