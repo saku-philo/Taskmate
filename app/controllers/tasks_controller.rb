@@ -3,19 +3,21 @@ class TasksController < ApplicationController
   PER = 5
 
   def index
-    @tasks = current_user.tasks.get_from_params(params).page(params[:page]).per(PER)
-    @task = current_user.tasks.new
+    @tasks = current_user.tasks.sort_tasks(params)
+    #binding.pry
+    @tasks = @tasks.search_tasks(params) if params[:search].present?
+    @tasks = @tasks.page(params[:page]).per(PER)
+    @task = Task.new
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @task = Task.new
   end
 
   def create
-    @task = current_user.tasks.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to tasks_path, notice: "タスク「#{@task.name}」を登録しました！"
     else
@@ -23,8 +25,7 @@ class TasksController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @task.update(task_params)
@@ -42,7 +43,9 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :due_date, :status, :priority)
+    # params.require(:task).permit(:name, :description, :due_date, :status, :priority, :user_id, label_ids: [])
+    params.require(:task).permit(:name, :description, :due_date, :status, :priority, label_ids: [])
+
   end
 
   def set_task

@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_08_012925) do
+ActiveRecord::Schema.define(version: 2019_05_15_084328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "labels", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "color", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "task_labels", force: :cascade do |t|
+    t.bigint "task_id", null: false
+    t.bigint "label_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label_id"], name: "index_task_labels_on_label_id"
+    t.index ["task_id"], name: "index_task_labels_on_task_id"
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.string "name", null: false
@@ -23,7 +39,7 @@ ActiveRecord::Schema.define(version: 2019_05_08_012925) do
     t.date "due_date"
     t.string "status", default: "未着手"
     t.integer "priority", default: 0
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.index ["name"], name: "index_tasks_on_name"
     t.index ["priority"], name: "index_tasks_on_priority"
     t.index ["status"], name: "index_tasks_on_status"
@@ -40,4 +56,6 @@ ActiveRecord::Schema.define(version: 2019_05_08_012925) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "task_labels", "labels"
+  add_foreign_key "task_labels", "tasks"
 end

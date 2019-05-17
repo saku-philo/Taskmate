@@ -14,12 +14,20 @@
     </div>
     <div class="form-group">
       <%= f.label :status %>
-      <%= f.select :status, task.status_key, {}, class: 'form-control' %>
+      <%= f.select :status, task.status_key, {include_blank: true}, class: 'form-control' %>
     </div>
     <div class="form-group">
       <%= f.label :priority %>
-      <%= f.select :priority, Task.priorities.keys, {}, selected: Task.priorities[@task.priority], class: 'form-control' %>
+      <%= f.select :priority, Task.priorities.keys, {include_blank: true}, selected: Task.priorities[@task.priority], class: 'form-control' %>
     </div>
+
+    <div class="form-group">
+      <%= f.label :labels %><br>
+      <%= collection_check_boxes(:task, :label_ids, Label.all, :id, :name, include_hidden: false ) do |t|  %>
+        <%= t.label { t.check_box + t.text } %>
+      <% end %>
+    </div>
+
     <div class="my-5">
       <%= f.submit nil, class: 'btn btn-outline-primary' %>
     </div>

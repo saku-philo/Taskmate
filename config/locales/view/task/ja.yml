@@ -11,6 +11,7 @@ ja:
     status: ステータス
     priority: 優先度
     created_at: 登録日時
+    name_search: タスク名
     index:
       task_index: タスク一覧
       name: 名称
@@ -18,6 +19,9 @@ ja:
       create_task: タスク登録
       sort_task: 終了期限で並び替え
       sort_task_priority: 優先度で並び替え
+      name_search: タスク名
+      status_search: ステータス
+      label_search: ラベル
       all_task: 登録順に表示
       priority: 優先度
       high: 高い

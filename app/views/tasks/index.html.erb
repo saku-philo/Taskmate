@@ -8,16 +8,24 @@
 
 <div class="container my-5 form-group">
   <div class="card shadow px-5 py-3">
-  <%= form_with(model: @task, method: :get, local: true) do |f| %>
+  <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
     <div>
-      <%= f.label :name_search %>
+      <%= f.label :name_search, t('.name_search') %>
       <%= f.text_field :name, class: 'form-control' %>
     </div>
+
     <div>
-      <%= f.label :status_search %>
-      <%= f.select :status, @task.status_key, {}, include_brank: true, class: 'form-control' %>
+      <%= f.label :status_search, t('.status_search') %>
+      <%= f.select :status, @task.status_key, {include_blank: true}, class: 'form-control' %>
     </div>
+
+    <div>
+      <%= f.label :label_search, t('.label_search') %>
+      <%= f.select :label_id, Label.all.pluck(:name, :id), {include_blank: true}, class: 'form-control' %>
+    </div>
+
     <%= f.hidden_field :search, value: 'true' %>
+
     <div class="my-3">
       <%= f.submit '検索', class: 'btn btn-outline-primary' %>
     </div>

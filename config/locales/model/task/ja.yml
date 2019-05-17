@@ -5,6 +5,7 @@ ja:
       task: タスク
     # モデルごとのアトリビュート
     attributes:
+      name_search: タスク名
       task:
         name: 名称
         description: 詳細
@@ -12,6 +13,7 @@ ja:
         status: ステータス
         name_search: タスク名
         status_search: ステータス
+        label_search: ラベル
         priority: 優先度
       user:
         name: 名前
@@ -22,7 +24,6 @@ ja:
   enums:
     task:
       priority:
-        nothing: ''
         high: 高
         middle: 中
         low: 低

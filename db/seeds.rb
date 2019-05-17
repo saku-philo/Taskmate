@@ -5,6 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+NUMBER_OF_STEPS = 3
+
+puts "step 1/#{NUMBER_OF_STEPS} Sign up initial users(not admin)"
 50.times do |n|
   name = Faker::Games::Zelda.character
   email = Faker::Internet.email
@@ -18,9 +21,23 @@
                )
 end
 
+puts "step 2/#{NUMBER_OF_STEPS} Sign up initial admin user "
 User.create!(name: "admin",
               email: "admin@a.com",
               password: "adminuser",
               password_confirmation: "adminuser",
               admin: true
+              )
+
+puts "step 3/#{NUMBER_OF_STEPS} Sign up initiak labels"
+Label.create!(name: "housework",
+              color: "lemonchiffon"
+              )
+
+Label.create!(name: "paper_work",
+              color: "pink"
+              )
+
+Label.create!(name: "date",
+              color: "aquamarine"
               )

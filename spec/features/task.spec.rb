@@ -5,10 +5,13 @@ require 'rails_helper'
 # このRSpec.featureの右側に、「タスク管理機能」のように、テスト項目の名称を書きます（do ~ endでグループ化されています）
 RSpec.feature "タスク管理機能", type: :feature do
   background do
-    # ユーザーを３名、タスクを各２件登録
+    # ユーザーを３名、ラベルを３件、タスクを各２件登録
     create(:user)
     create(:second_user)
     create(:third_user)
+    create(:label)
+    create(:second_label)
+    create(:third_label)
     create(:task)
     create(:second_task)
     create(:third_task)
@@ -52,6 +55,10 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     #優先順位登録
     select '高', from: '優先度'
+
+    # ラベル登録
+    check 'work'
+
     # 「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）
     # 4.「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
     click_on '登録する'
@@ -73,10 +80,14 @@ RSpec.feature "タスク管理機能", type: :feature do
     # 詳細ページに内容が含まれているか確認
     expect(page).to have_content 'のび太が作ったデフォルトのコンテント１'
 
+    # 登録したラベルが表示されているか確認
+    expect(page).to have_content 'work'
+
     # 別のタスクで確認
     visit tasks_path
     click_link 'のび太が作ったデフォルトのタイトル２'
     expect(page).to have_content 'のび太が作ったデフォルトのコンテント２'
+    expect(page).to have_content 'travel'
   end
 
   scenario "タスクが作成日時順に並んでいるかのテスト" do
@@ -109,17 +120,23 @@ RSpec.feature "タスク管理機能", type: :feature do
 
   scenario "タスクを名前で検索する機能のテスト" do
     visit tasks_path
-    fill_in 'task_name', with: 'のび太が作ったデフォルトのタイトル１'
-    select '', from: 'task_status'
+    fill_in 'name', with: 'のび太が作ったデフォルトのタイトル１'
     click_on '検索'
-    expect(page).to have_content ''
+    expect(page).to have_content 'のび太が作ったデフォルトのタイトル１'
   end
 
   scenario "タスクをステータスで検索する機能のテスト" do
     visit tasks_path
-    select '未着手', from: 'task_status'
+    select '未着手', from: 'status'
     click_on '検索'
     expect(page).to have_content 'のび太が作ったデフォルトのタイトル１'
+  end
+
+  scenario "タスクをラベルで検索する機能のテスト" do
+    visit tasks_path
+    select 'travel', from: 'label_id'
+    click_on '検索'
+    expect(page).to have_content 'のび太が作ったデフォルトのタイトル２'
   end
 
   scenario "ページネーション機能のテスト" do
