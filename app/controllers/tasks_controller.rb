@@ -3,10 +3,10 @@ class TasksController < ApplicationController
   PER = 5
 
   def index
-    @tasks = current_user.tasks.sort_tasks(params)
-    #binding.pry
-    @tasks = @tasks.search_tasks(params) if params[:search].present?
-    @tasks = @tasks.page(params[:page]).per(PER)
+    @tasks = current_user.tasks
+    @sorted_tasks = @tasks.sort_tasks(params)
+    @searched_tasks = @sorted_tasks.search_tasks(params)
+    @finally_tasks = @searched_tasks.page(params[:page]).per(PER)
     @task = Task.new
   end
 
@@ -43,9 +43,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    # params.require(:task).permit(:name, :description, :due_date, :status, :priority, :user_id, label_ids: [])
     params.require(:task).permit(:name, :description, :due_date, :status, :priority, label_ids: [])
-
   end
 
   def set_task
