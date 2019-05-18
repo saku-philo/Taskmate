@@ -2,10 +2,17 @@ require 'rails_helper'
 
 RSpec.feature "ユーザー管理機能のテスト", type: :feature do
   background do
-    # ユーザーを３名、タスクを各２件登録
+    # ユーザーを３名作成
     create(:user)
     create(:second_user)
     create(:third_user)
+
+    # ラベルを３件作成
+    create(:label)
+    create(:second_label)
+    create(:third_label)
+
+    # タスクを各ユーザー２件作成
     create(:task)
     create(:second_task)
     create(:third_task)
@@ -22,7 +29,7 @@ RSpec.feature "ユーザー管理機能のテスト", type: :feature do
 
   scenario "ナビゲーションバーの「管理画面」を押すと登録ユーザー一覧画面に移動するテスト" do
     # 管理画面に移動
-    click_link '管理画面'
+    click_link '管理者画面'
 
     # ユーザー一覧が表示されているか確認
     expect(page).to have_content '登録ユーザー一覧'
@@ -48,7 +55,7 @@ RSpec.feature "ユーザー管理機能のテスト", type: :feature do
 
   scenario "ユーザー詳細画面の確認テスト" do
     # 管理画面に移動
-    click_link '管理画面'
+    click_link '管理者画面'
 
     # ３番目の登録ユーザー画面へ
     page.all(".user_task")[2].click_link('詳細')
@@ -59,7 +66,7 @@ RSpec.feature "ユーザー管理機能のテスト", type: :feature do
 
   scenario "ユーザー情報変更のテスト" do
     # 管理画面に移動
-    click_link '管理画面'
+    click_link '管理者画面'
 
     # ３番目の登録ユーザー画面へ
     page.all(".user_task")[2].click_link('詳細')
@@ -79,7 +86,7 @@ RSpec.feature "ユーザー管理機能のテスト", type: :feature do
 
   scenario "ユーザー情報削除のテスト" do
     # 管理画面に移動
-    click_link '管理画面'
+    click_link '管理者画面'
 
     # ２番目の登録ユーザー画面へ
     page.all(".user_task")[1].click_link('詳細')
@@ -90,6 +97,5 @@ RSpec.feature "ユーザー管理機能のテスト", type: :feature do
     # 一覧画面にて削除を確認
     row = page.all('tr')
     expect(row).not_to have_content 'スネ夫'
-    save_and_open_page
   end
 end
