@@ -6,35 +6,41 @@ class Task < ApplicationRecord
 
   enum priority: { 低: 0, 中: 1, 高: 2 }
 
-  # タスク検索機能
+  ## タスク検索機能
+  # タスク名検索
   scope :search_name, -> (params) do
-    name = params[:name]
-    where("name LIKE?", "%#{name}%") if name.present?
+    where("name LIKE?", "%#{params}%") if params.present?
   end
 
+  # ステータス検索
   scope :search_status, -> (params) do
-    status = params[:status]
-    where(status: status) if status.present?
+    where(status: params) if params.present?
   end
 
+  # ラベル検索
   scope :search_label, -> (params) do
-    id = params[:label_id]
-    joins(:labels).where(labels: {id: id}) if id.present?
+    joins(:labels).where(labels: {id: params}) if params.present?
   end
 
-  scope :search_tasks, -> (params) { search_name(params).search_status(params).search_label(params)}
+  # タスク名、ステータス、ラベル検索を統合
+  scope :search_tasks, -> (params) do
+    if params[:search].present?
+      search_name(params[:name])
+      .search_status(params[:status])
+      .search_label(params[:label_id])
+    end
+  end
 
-  # タスクソート機能
+  ## タスクソート機能
   class << self
     def sort_tasks(params)
-      #binding.pry
-      return nil if params.nil?
+      return self.order(created_at: 'DESC') if params[:sort].nil?
       if (params[:sort_expired])
-        return Task.all.order(:due_date)
+        return self.order(:due_date)
       elsif (params[:sort_expired_priority])
-        return Task.all.order(priority: 'DESC')
+        return self.order(priority: 'DESC')
       else
-        return Task.all.order(created_at: 'DESC')
+        return self.order(created_at: 'DESC')
       end
     end
   end

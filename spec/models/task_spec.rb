@@ -31,7 +31,7 @@ RSpec.describe Task, type: :model do
       let!(:task_1) { create(:task) }
       let!(:task_2) { create(:second_task) }
       let!(:tasks) { user.tasks }
-      params = { "label_id"=>"3", "search"=>"true" }
+      params = { "label_id"=>"1", "search"=>"true" }
       subject { tasks.search_label(params).first.labels.first.id }
       it { is_expected.to eq 1 }
       #end
