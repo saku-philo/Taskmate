@@ -10,11 +10,21 @@
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>
     </div>
-    <div class="mt-4 mb-5">
+    <div class="my-4">
       <%= f.submit "Log in", class: 'btn btn-primary' %>
+    </div>
+    <div>
+      <%= f.submit "テストユーザーログイン", class: 'btn btn-info mb-5', id: 'test-user-login'%>
     </div>
   <% end %>
 
   <%= link_to 'ユーザー新規登録', new_user_path %>
   </div>
 </div>
+
+<script>
+$('#test-user-login').on('click', function () {
+  $('#session_email').val('test@test.com');
+  $('#session_password').val('testpass');
+});
+</script>

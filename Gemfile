@@ -39,6 +39,7 @@ gem 'kaminari'
 gem 'bootstrap'
 gem 'kaminari-bootstrap'
 gem 'faker'
+gem 'jquery-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
