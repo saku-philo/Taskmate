@@ -1,12 +1,29 @@
-<%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+<div class="container my-3">
+  <div class="card p-3">
+    <h5>ユーザーログイン</h5>
+  <%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+    <div class="form-group my-4">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+    </div>
+    <div class="form-group my-4">
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+    </div>
+    <div class="my-4">
+      <%= f.submit "Log in", class: 'btn btn-primary' %>
+    </div>
+    <div>
+      <%= f.submit "テストユーザーログイン", class: 'btn btn-info mb-5', id: 'test-user-login'%>
+    </div>
+  <% end %>
 
-  <%= f.label :email %>
-  <%= f.email_field :email %>
-
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-
-  <%= f.submit "Log in" %>
-<% end %>
-
-<%= link_to 'ユーザー登録', new_user_path %>
+  <%= link_to 'ユーザー新規登録', new_user_path %>
+  </div>
+</div>
+<script>
+$('#test-user-login').on('click', function () {
+  $('#session_email').val('test@test.com');
+  $('#session_password').val('testpass');
+});
+</script>
